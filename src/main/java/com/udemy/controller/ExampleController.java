@@ -1,10 +1,15 @@
 package com.udemy.controller;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
+
+import model.Person;
 
 //con esta primera anotación le indicamos que spring tiene que tratar este beam como un controlador
 @Controller
@@ -25,7 +30,7 @@ public class ExampleController {
 
 		public String exampleString(Model model) {
 			
-			model.addAttribute("name", "Jon");
+			model.addAttribute("people", getPeople());
 			//indicamos la vista a devolver
 			return EXAMPLE_VIEW;
 		}
@@ -37,9 +42,21 @@ public class ExampleController {
 		public ModelAndView exampleMAV() {
 			
 			ModelAndView mav = new ModelAndView(EXAMPLE_VIEW);
-			mav.addObject("name","Mikel");
+			mav.addObject("people",getPeople());
 			
 			return mav;
 			//return new ModelAndView(EXAMPLE_VIEW);
+		}
+		
+		private List<Person> getPeople(){
+			
+			List<Person> people = new ArrayList<>();
+			
+			people.add(new Person("John",23));
+			people.add(new Person("Mikel",23));
+			people.add(new Person("Tina",27));
+			people.add(new Person("Katty",40));
+			
+			return people;
 		}
 }
